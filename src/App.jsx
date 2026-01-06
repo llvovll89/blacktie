@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router basename={process.env.PUBLIC_URL}>
+      <Router basename={import.meta.env.VITE_PUBLIC_URL}>
         <ResetStyle />
         <GlobalWrap >
           <ProgressBar />
