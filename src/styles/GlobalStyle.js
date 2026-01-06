@@ -896,7 +896,6 @@ const HeaderContainer = styled.header`
       letter-spacing: 0.15rem;
       text-shadow: 0 0 15px skyblue 0 0 25px;
       cursor: pointer;
-      font-family: 'Nanum Gothic', sans-serif;
       animation: ${LogoAnimation} 3s linear infinite;
     }
   }

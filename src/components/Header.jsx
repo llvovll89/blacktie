@@ -118,10 +118,9 @@ const Header = () => {
   }, [dispatch, searchQuery, scrollEvent]);
 
   return (
-    <HeaderContainer className={`${
-      dark ? '' : 'dark'
-    } ${scrollBottom ? 'bottom' : ''}`}>
-    
+    <HeaderContainer className={`${dark ? '' : 'dark'
+      } ${scrollBottom ? 'bottom' : ''}`}>
+
       <div className="logo">
         <Link to="/">BLACK TIE</Link>
       </div>
@@ -197,7 +196,7 @@ const Header = () => {
         <div
           className="search"
           onClick={searchHandler}
-          // onTouchStart={searchHandler}
+        // onTouchStart={searchHandler}
         >
           {isSearchVisible ? <AiOutlineClose /> : <AiOutlineSearch />}
         </div>
