@@ -9,7 +9,7 @@ export default defineConfig({
     reactRefresh(),
     pages({ pagesDir: 'src/pages' }),
   ],
-  base: '/movieapp/',
+  base: '/blacktie/',
   build: {
     outDir: 'dist',
   },

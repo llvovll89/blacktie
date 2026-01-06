@@ -21,7 +21,7 @@ function App() {
 
   return (
     <Provider store={store}>
-      <Router basename="/movieapp">
+      <Router basename={process.env.PUBLIC_URL}>
         <ResetStyle />
         <GlobalWrap >
           <ProgressBar />
