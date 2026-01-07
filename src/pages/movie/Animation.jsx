@@ -59,11 +59,9 @@ const Animation = () => {
                     </Link>
                   )}
                 </div>
+                <div className="average">{ani.vote_average.toFixed(2)}</div>
                 <div className="bot">
                   <p className="title">{ani.title}</p>
-                  <p className="aver">
-                    평점 -<span> {ani.vote_average}</span>
-                  </p>
                   <p className="date">
                     <span> {ani.release_date}</span>
                   </p>

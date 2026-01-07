@@ -25,7 +25,7 @@ const JapanAni = () => {
   const { VITE_API_KEY: API_KEY, VITE_BASE_URL: API_BASE_URL } = import.meta.env;
   const POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
   const NO_IMAGE_URL = 'https://via.placeholder.com/500x750.png?text=No+Image';
-  
+
   const { data, error, isLoading } = useAxios(
     `${API_BASE_URL}/discover/movie?api_key=${API_KEY}&language=ko&sort_by=release_date.desc&with_genres=16&with_original_language=ja&release_date.lte=${new Date()
       .toISOString()
@@ -49,7 +49,7 @@ const JapanAni = () => {
           <Loading>
           </Loading>
         )}
-          {error && <p>Error: {error.message}</p>}
+        {error && <p>Error: {error.message}</p>}
         {data &&
           data.results &&
           data.results.map((ani) => (
@@ -70,14 +70,12 @@ const JapanAni = () => {
                     </Link>
                   )}
                 </div>
+                <div className="average">{ani.vote_average.toFixed(2)}</div>
                 <div className="bot">
                   <p className="title">
                     {ani.title.length > 20
                       ? ani.title.slice(0, 20) + '...'
                       : ani.title}
-                  </p>
-                  <p className="aver">
-                    평점 - <span>{ani.vote_average}</span>
                   </p>
                   <p className="date">
                     <span>{ani.release_date}</span>

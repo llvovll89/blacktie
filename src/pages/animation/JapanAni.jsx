@@ -71,14 +71,12 @@ const JapanAni = () => {
                     </Link>
                   )}
                 </div>
+                <div className="average">{ani.vote_average.toFixed(2)}</div>
                 <div className="bot">
                   <p className="title">
                     {ani.name.length > 20
                       ? ani.name.slice(0, 20) + '...'
                       : ani.name}
-                  </p>
-                  <p className="aver">
-                    평점 - <span>{ani.vote_average}</span>
                   </p>
                   <p className="date">
                     <span>{ani.first_air_date}</span>

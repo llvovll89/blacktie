@@ -79,22 +79,20 @@ const HappyMovies = ({ url }) => {
         {happyMovies.results &&
           happyMovies.results.map((movie) => (
             <SplideSlide key={movie.id}>
-            <SliderItem className={dark ? "" : "dark"}
-            onClick={() => handleLinkClick(movie)}
-            >
-              <img
-                src={`${POSTER_URL}${movie.poster_path}`}
-                alt={movie.title}
-                loading='lazy'
-              />
-            <div className="slider_contents">
-            <h3>{movie.title}</h3>
-            <p>
-              평점 - <span>{movie.vote_average}</span>
-            </p>
-            <p>{movie.release_date}</p>
-            </div>
-          </SliderItem>
+              <SliderItem className={dark ? "" : "dark"}
+                onClick={() => handleLinkClick(movie)}
+              >
+                <img
+                  src={`${POSTER_URL}${movie.poster_path}`}
+                  alt={movie.title}
+                  loading='lazy'
+                />
+                <div className="average absolute top-0 left-0">{movie.vote_average.toFixed(2)}</div>
+                <div className="slider_contents">
+                  <h3>{movie.title}</h3>
+                  <p>{movie.release_date}</p>
+                </div>
+              </SliderItem>
             </SplideSlide>
           ))}
       </Splide>

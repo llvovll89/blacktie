@@ -40,57 +40,55 @@ const Drama = () => {
   };
 
   return (
-      <Section className={dark ? '' : 'dark'}>
-        <Results ref={resultsRef}>
-          {isLoading && (
-            <Loading>
-              <Spinner />
-            </Loading>
-          )}
-          {error && <h1>Error: {error.message}</h1>}
-          {data &&
-            data.results &&
-            data.results.map((drama) => (
-              <Card key={drama.id}>
-                <div className="contents">
-                  <div className="top">
-                    {drama.poster_path && (
-                      <Link to={`/tv/${drama.id}`}>
-                        <img
-                          src={`${POSTER_URL}${drama.poster_path}`}
-                          alt={drama.name}
-                        />
-                      </Link>
-                    )}
-                  </div>
-                  <div className="bot">
-                    <p className="title">{drama.name}</p>
-                    <p className="aver">
-                      평점 - <span>{drama.vote_average}</span>
-                    </p>
-                    <p className="date">
-                      <span>{drama.first_air_date}</span>
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-        </Results>
-
-        {data && (
-          <PaginationContainer>
-            <PaginationButton
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              <FaArrowLeft />
-            </PaginationButton>
-            <PaginationButton onClick={() => handlePageChange(currentPage + 1)}>
-              <FaArrowRight />
-            </PaginationButton>
-          </PaginationContainer>
+    <Section className={dark ? '' : 'dark'}>
+      <Results ref={resultsRef}>
+        {isLoading && (
+          <Loading>
+            <Spinner />
+          </Loading>
         )}
-      </Section>
+        {error && <h1>Error: {error.message}</h1>}
+        {data &&
+          data.results &&
+          data.results.map((drama) => (
+            <Card key={drama.id}>
+              <div className="contents">
+                <div className="top">
+                  {drama.poster_path && (
+                    <Link to={`/tv/${drama.id}`}>
+                      <img
+                        src={`${POSTER_URL}${drama.poster_path}`}
+                        alt={drama.name}
+                      />
+                    </Link>
+                  )}
+                </div>
+                <div className="average">{drama.vote_average.toFixed(2)}</div>
+                <div className="bot">
+                  <p className="title">{drama.name}</p>
+                  <p className="date">
+                    <span>{drama.first_air_date}</span>
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
+      </Results>
+
+      {data && (
+        <PaginationContainer>
+          <PaginationButton
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            <FaArrowLeft />
+          </PaginationButton>
+          <PaginationButton onClick={() => handlePageChange(currentPage + 1)}>
+            <FaArrowRight />
+          </PaginationButton>
+        </PaginationContainer>
+      )}
+    </Section>
   );
 };
 

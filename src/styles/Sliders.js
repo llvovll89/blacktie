@@ -60,6 +60,36 @@ const SliderItem = styled.div`
     width: 100%;
     height: 100%;
   }
+  
+  .average {
+      position: absolute;
+      left: 4px;
+      top: 2px;
+      font-size: clamp(10px, 1vw, 12px);
+      padding: 0;
+      font-weight: bold;
+      color: salmon;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        border: 2px solid salmon;
+        border-radius: 100%;
+      }
+  }
 
   .slider_contents {
     width: 100%;
@@ -69,22 +99,17 @@ const SliderItem = styled.div`
     background: rgba(0, 0, 0, 0.56);
     
     h3 {
-    font-size: 16px;
+    font-size: clamp(12px, 1vw, 14px);
     letter-spacing: 0.02rem;
     font-weight: 700;
     padding: 2px 6px; 
     }
   
     p {
-    font-size: 14px;
+    font-size: clamp(10px, 1vw, 14px);
     display: flex;
     gap: 6px;
     padding-left: 6px;
-    span {
-      font-size: 15px;
-      padding: 0;
-      color: salmon;
-    }
   }
   }
 

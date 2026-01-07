@@ -16,6 +16,7 @@ import Person from './pages/Person';
 import PersonDetail from './pages/person/PersonDetail';
 import ProgressBar from './common/Progressbar';
 import "./styles/font.css";
+import { DarkMode } from './components/DarkMode';
 
 function App() {
 
@@ -37,6 +38,7 @@ function App() {
             <Route path="person/*" element={<Person />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
+          <DarkMode />
           <Footer />
         </GlobalWrap>
       </Router>

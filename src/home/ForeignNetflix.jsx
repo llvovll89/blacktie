@@ -55,7 +55,7 @@ const ForeignNetflix = ({ url }) => {
   return (
     <Container>
       <div className="top">
-      <h2>현재 외국에서 인기있는 Netflix </h2>
+        <h2>현재 외국에서 인기있는 Netflix </h2>
       </div>
       {isLoading && (
         <Loading>
@@ -78,11 +78,9 @@ const ForeignNetflix = ({ url }) => {
             <SplideSlide key={tv.id}>
               <SliderItem onClick={() => handleLinkClick(tv)}>
                 <img src={`${POSTER_URL}${tv.poster_path}`} alt={tv.title} loading='lazy' />
+                <div className="average absolute top-0 left-0">{tv.vote_average.toFixed(2)}</div>
                 <div className="slider_contents">
                   <h3>{tv.name}</h3>
-                  <p>
-                    평점 - <span>{tv.vote_average}</span>
-                  </p>
                   <p>{tv.first_air_date}</p>
                 </div>
               </SliderItem>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { Section, ErrorBox, DetailPage } from '../../styles/GlobalStyle';
-import { Loading } from '../../styles/Loading';
+import { Loading, Spinner } from '../../styles/Loading';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -61,7 +61,7 @@ const TvDetail = () => {
     <Section className={dark ? '' : 'dark'}>
       {isLoading && (
         <Loading>
-          <h1>Loading...</h1>
+          <Spinner />
         </Loading>
       )}
       {error && (

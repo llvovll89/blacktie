@@ -39,14 +39,15 @@ const Movies = () => {
 
   return (
     <Section className={dark ? '' : 'dark'}>
-      <Results>
+      <Results $isLoading={isLoading}>
         {isLoading && (
           <Loading>
             <Spinner />
           </Loading>
         )}
+
         {error && <p>Error: {error.message}</p>}
-        {data &&
+        {!isLoading && data &&
           data.results &&
           data.results.slice(0, 12).map((movie) => (
             <Card key={movie.id}>
@@ -62,11 +63,9 @@ const Movies = () => {
                     </Link>
                   )}
                 </div>
+                <div className="average">{movie.vote_average.toFixed(2)}</div>
                 <div className="bot">
                   <p className="title">{movie.title}</p>
-                  <p className="aver">
-                    평점 - <span>{movie.vote_average}</span>
-                  </p>
                   <p className="date">
                     <span> {movie.release_date}</span>
                   </p>
@@ -75,7 +74,8 @@ const Movies = () => {
             </Card>
           ))}
       </Results>
-      {data && (
+
+      {!isLoading && data.results && (
         <PaginationContainer>
           <PaginationButton
             disabled={currentPage === 1}

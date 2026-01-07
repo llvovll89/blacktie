@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import useAxios from '../../hooks/useAxios';
 import { DetailPage, Section, DetailPerson, ErrorBox } from '../../styles/GlobalStyle';
-import { Loading } from '../../styles/Loading';
+import { Loading, Spinner } from '../../styles/Loading';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/react-splide/css';
 import { AiOutlineClose } from 'react-icons/ai';
@@ -64,15 +64,18 @@ const PersonDetail = () => {
   return (
     <Section className={dark ? '' : 'dark'}>
       {isLoading && (
-        <Loading>
-          <h1>Loading...</h1>
-        </Loading>
+        <article className='loader_section'>
+          <Loading>
+            <Spinner />
+          </Loading>
+        </article>
       )}
       {error && (
         <ErrorBox>
           <h1>Error : {error.message}</h1>
         </ErrorBox>
       )}
+
       {!isLoading && !error && (
         <DetailPerson>
           <div

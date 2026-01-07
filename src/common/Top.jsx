@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { TopArrow } from '../styles/GlobalStyle';
 import { AiOutlineArrowUp } from 'react-icons/ai';
+import { useSelector } from 'react-redux';
 
 const Top = () => {
   const [arrow, setArrow] = useState(false);
+  const { dark } = useSelector((state) => state.darkMode);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,7 +22,7 @@ const Top = () => {
   return (
     <>
       {arrow && (
-        <TopArrow onClick={() => window.scrollTo({top: 0, left: 0, behavior: "smooth"})}>
+        <TopArrow $dark={dark} onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}>
           <AiOutlineArrowUp />
         </TopArrow>
       )}

@@ -85,8 +85,8 @@ const LatestTrailer = ({ url }) => {
             <SplideSlide key={movie.id}>
               <SliderItem className={dark ? '' : 'dark'}>
                 {movie.videos &&
-                movie.videos.results.length &&
-                movie.videos.results.length > 0 ? (
+                  movie.videos.results.length &&
+                  movie.videos.results.length > 0 ? (
                   <iframe
                     title={`${movie.title} trailer`}
                     width="100%"
@@ -101,11 +101,9 @@ const LatestTrailer = ({ url }) => {
                     alt={movie.title}
                   />
                 )}
+                <div className="average absolute top-0 left-0">{movie.vote_average.toFixed(2)}</div>
                 <div className="slider_contents">
                   <h3>{movie.title}</h3>
-                  <p>
-                    평점 - <span>{movie.vote_average}</span>
-                  </p>
                   <p>{movie.release_date}</p>
                 </div>
               </SliderItem>

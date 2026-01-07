@@ -41,17 +41,17 @@ function SearchResults() {
     filter === 'all'
       ? data.results || []
       : (data.results || []).filter((movie) => {
-          if (!movie.production_countries) {
-            return false;
-          }
-          return filter === 'korean'
-            ? movie.production_countries.some(
-                (country) => country.iso_3166_1 === 'KR'
-              )
-            : movie.production_countries.every(
-                (country) => country.iso_3166_1 !== 'KR'
-              );
-        });
+        if (!movie.production_countries) {
+          return false;
+        }
+        return filter === 'korean'
+          ? movie.production_countries.some(
+            (country) => country.iso_3166_1 === 'KR'
+          )
+          : movie.production_countries.every(
+            (country) => country.iso_3166_1 !== 'KR'
+          );
+      });
 
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
@@ -60,7 +60,6 @@ function SearchResults() {
   if (isLoading) {
     return (
       <Loading>
-        <h1>Loading...</h1>
         <Spinner />
       </Loading>
     );
@@ -74,107 +73,107 @@ function SearchResults() {
 
   return (
     <Section className={dark ? '' : 'dark'}>
-      
-    <div className="items">
-    <p>
-      <span>" {query} "</span> (으)로 검색하신 결과 입니다.
-      <span> 총 {data.total_results}개</span>
-    </p>
-    <div className="filter">
-      <select name="filter" value={filter} onChange={handleFilterChange}>
-        <option value="all">전체</option>
-        <option value="korean">한국영화</option>
-        <option value="foreign">외국영화</option>
-      </select>
-    </div>
-  </div>
 
-        {filteredData.length > 0 ? (
-          <Results>
-            {filteredData.map((movie) => (
-              <Card key={movie.id}>
-                <div className="contents">
-                  <div className="top">
+      <div className="items">
+        <p>
+          <span>" {query} "</span> (으)로 검색하신 결과 입니다.
+          <span> 총 {data.total_results}개</span>
+        </p>
+        <div className="filter">
+          <select name="filter" value={filter} onChange={handleFilterChange}>
+            <option value="all">전체</option>
+            <option value="korean">한국영화</option>
+            <option value="foreign">외국영화</option>
+          </select>
+        </div>
+      </div>
+
+      {filteredData.length > 0 ? (
+        <Results>
+          {filteredData.map((movie) => (
+            <Card key={movie.id}>
+              <div className="contents">
+                <div className="top">
                   <Link
-                  to={
-                    movie.media_type === 'movie'
-                      ? `/movies/${movie.id}`
-                      : movie.media_type === 'person'
-                        ? `/character/${movie.id}`
-                        : movie.media_type === "tv"
-                        ? `/tv/${movie.id}`
-                        : ""
-                  }
-                >
-                      <img
-                        src={
-                          movie.poster_path
-                            ? `${POSTER_URL}${movie.poster_path}`
-                            : movie.profile_path
+                    to={
+                      movie.media_type === 'movie'
+                        ? `/movies/${movie.id}`
+                        : movie.media_type === 'person'
+                          ? `/character/${movie.id}`
+                          : movie.media_type === "tv"
+                            ? `/tv/${movie.id}`
+                            : ""
+                    }
+                  >
+                    <img
+                      src={
+                        movie.poster_path
+                          ? `${POSTER_URL}${movie.poster_path}`
+                          : movie.profile_path
                             ? `${POSTER_URL}${movie.profile_path}`
                             : movie.known_for &&
                               movie.known_for[0].backdrop_path
-                            ? `${POSTER_URL}${movie.known_for[0].backdrop_path}`
-                            : NO_IMAGE_URL
-                        }
-                        alt={movie.title}
-                        loading="lazy"
-                      />
-                    </Link>
-                  </div>
-                  <div className="bot">
-                    <p className="title">
-                      {movie.title ? movie.title : movie.name}
-                    </p>
-                    <div className="aver">
-                      {movie.vote_average ? (
-                        <p>
-                          평점 - <span>{movie.vote_average.toFixed(2)}</span>
-                        </p>
-                      ) : movie.popularity ? (
-                        <p>
-                          인기 - <span>{movie.popularity.toFixed(2)}</span>
-                        </p>
-                      ) : (
-                        <p>값 없음</p>
-                      )}
-                    </div>
-                    <p className="date">
-                      {movie.release_date
-                        ? movie.release_date
-                        : (movie.known_for || []).map((item) => (
-                            <span key={item.id}>{item.name || item.title}</span>
-                          ))}
-                    </p>
-                  </div>
+                              ? `${POSTER_URL}${movie.known_for[0].backdrop_path}`
+                              : NO_IMAGE_URL
+                      }
+                      alt={movie.title}
+                      loading="lazy"
+                    />
+                  </Link>
                 </div>
-              </Card>
-            ))}
-          </Results>
-        ) : (
-          <div className="non_page">
-            <h1>404 NOT FOUND</h1>
-            <p>검색 결과가 없습니다.</p>
-            <p>다른 검색어로 다시 시도해주세요.</p>
-          </div>
-        )}
+                <div className="bot">
+                  <p className="title">
+                    {movie.title ? movie.title : movie.name}
+                  </p>
+                  <div className="aver">
+                    {movie.vote_average ? (
+                      <p>
+                        평점 - <span>{movie.vote_average.toFixed(2)}</span>
+                      </p>
+                    ) : movie.popularity ? (
+                      <p>
+                        인기 - <span>{movie.popularity.toFixed(2)}</span>
+                      </p>
+                    ) : (
+                      <p>값 없음</p>
+                    )}
+                  </div>
+                  <p className="date">
+                    {movie.release_date
+                      ? movie.release_date
+                      : (movie.known_for || []).map((item) => (
+                        <span key={item.id}>{item.name || item.title}</span>
+                      ))}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </Results>
+      ) : (
+        <div className="non_page">
+          <h1>404 NOT FOUND</h1>
+          <p>검색 결과가 없습니다.</p>
+          <p>다른 검색어로 다시 시도해주세요.</p>
+        </div>
+      )}
 
-        {data && (
-          <PaginationContainer>
-            <PaginationButton
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage - 1)}
-            >
-              <FaArrowLeft />
-            </PaginationButton>
-            <PaginationButton
-              disabled={currentPage === 1}
-              onClick={() => handlePageChange(currentPage + 1)}
-            >
-              <FaArrowRight />
-            </PaginationButton>
-          </PaginationContainer>
-        )}
+      {data && (
+        <PaginationContainer>
+          <PaginationButton
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage - 1)}
+          >
+            <FaArrowLeft />
+          </PaginationButton>
+          <PaginationButton
+            disabled={currentPage === 1}
+            onClick={() => handlePageChange(currentPage + 1)}
+          >
+            <FaArrowRight />
+          </PaginationButton>
+        </PaginationContainer>
+      )}
 
     </Section>
   );

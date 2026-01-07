@@ -1,4 +1,4 @@
-import React, { useState, useEffect , useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import useAxios from '../hooks/useAxios';
 import { Container } from '../styles/GlobalStyle';
 import { SliderItem } from '../styles/Sliders';
@@ -86,11 +86,10 @@ const PopularMovies = ({ url }) => {
                   loading="lazy"
                 />
 
+                <div className="average absolute top-0 left-0">{movie.vote_average.toFixed(2)}</div>
+
                 <div className="slider_contents">
                   <h3>{movie.title}</h3>
-                  <p>
-                    평점 - <span>{movie.vote_average}</span>
-                  </p>
                   <p>{movie.release_date}</p>
                 </div>
               </SliderItem>

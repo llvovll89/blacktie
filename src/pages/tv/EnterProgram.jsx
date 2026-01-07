@@ -18,6 +18,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 const EnterProgram = () => {
   const currentPage = useSelector(selectCurrentPage);
   const sidebarWidth = useSelector((state) => state.sidebar.sidebarWidth);
+  const dark = useSelector((state) => state.darkMode.dark);
   const dispatch = useDispatch();
 
   const { VITE_API_KEY: API_KEY, VITE_BASE_URL: API_BASE_URL } = import.meta
@@ -37,7 +38,7 @@ const EnterProgram = () => {
 
   return (
     <>
-    <Section>
+      <Section className={dark ? '' : 'dark'}>
         <Results>
           {isLoading && (
             <Loading>
@@ -60,11 +61,9 @@ const EnterProgram = () => {
                       </Link>
                     )}
                   </div>
+                  <div className="average">{enter.vote_average.toFixed(2)}</div>
                   <div className="bot">
                     <p className="title">{enter.name}</p>
-                    <p className="aver">
-                      평점 - <span>{enter.vote_average}</span>
-                    </p>
                     <p className="date">
                       첫 방송 <span>{enter.first_air_date}</span>
                     </p>

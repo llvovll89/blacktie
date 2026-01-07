@@ -14,11 +14,8 @@ const LogoAnimation = keyframes`
 const GlobalWrap = styled.div`
   position: relative;
   width: 100%;
+  min-height: 100vh;
   background: #ffffff;
-  min-height: calc(
-    100vh - env(safe-area-inset-bottom) - env(safe-area-inset-top)
-  );
-
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -805,7 +802,7 @@ const Content = styled.div`
 const HeaderContainer = styled.header`
   position: fixed;
   width: 100%;
-  height: 76px;
+  height: 50px;
   display: flex;
   background: #ffffff;
   color: #000;
@@ -816,10 +813,7 @@ const HeaderContainer = styled.header`
   left: 0;
   z-index: 1000;
   transition: background-color, box-shadow 0.15s linear;
-
-  /* &.bottom {
-    box-shadow: 0px 1px 1px #4fd2b2;
-  } */
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 
   &.dark {
     background: #292a2d;
@@ -951,15 +945,15 @@ const HeaderContainer = styled.header`
         }
 
         .dropdown-content {
-          padding: 12px;
+          padding: 6px;
           display: none;
           position: absolute;
           top: 100%;
           left: 50%;
           border-color: rgba(0, 0, 0, 0.15);
-          background-color: #fff;
+          background-color: rgb(41, 42, 45);
           transform: translateX(-50%);
-          min-width: 180px;
+          min-width: 140px;
           z-index: 100;
           border-radius: 6px;
           box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.03),
@@ -967,10 +961,11 @@ const HeaderContainer = styled.header`
 
           a,
           span {
-            color: #212529;
+            color: #ffffff;
             padding: 9px;
             text-decoration: none;
             display: block;
+            font-size: clamp(12px, 1.25vw, 14px);
           }
 
           a:hover,
@@ -1086,8 +1081,8 @@ const HeaderContainer = styled.header`
 
 const Section = styled.section`
   position: relative;
-  padding-top: 76px;
-  min-height: 100vh;
+  padding-top: 56px;
+  min-height: calc(100vh - 180px);
   transition: padding-left 0.15s ease;
   background: #ffffff;
   color: #000;
@@ -1096,6 +1091,12 @@ const Section = styled.section`
   &.dark {
     background: #1e1f21;
     color: #ffffff;
+  }
+
+  .loader_section {
+    position: absolute;
+    width: 100%;
+    height: 100%;
   }
 
   .items {
@@ -1322,7 +1323,6 @@ const TopArrow = styled.div`
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  background: #fff;
   position: fixed;
   bottom: 4%;
   right: 2%;
@@ -1332,6 +1332,9 @@ const TopArrow = styled.div`
   cursor: pointer;
   z-index: 1000;
 
+  background: ${props => props.$dark ? '#292a2d' : '#f1f1f1'};
+  color: ${props => props.$dark ? '#f1f1f1' : '#292a2d'};
+
   @media screen and (max-width: 768px) {
     width: 36px;
     height: 36px;
@@ -1340,6 +1343,7 @@ const TopArrow = styled.div`
 `;
 
 const Card = styled.div`
+  position: relative;
   display: flex;
   align-items: center;
   width: 100%;
@@ -1353,6 +1357,36 @@ const Card = styled.div`
 
   border-radius: 12px;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.12);
+
+  .average {
+  position: absolute;
+      left: 4px;
+      top: 2px;
+      font-size: clamp(10px, 1vw, 12px);
+      padding: 0;
+      font-weight: bold;
+      color: salmon;
+      width: 34px;
+      height: 34px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 80%;
+        height: 80%;
+        border: 2px solid salmon;
+        border-radius: 100%;
+      }
+  }
 
   .contents {
     position: relative;
@@ -1395,7 +1429,6 @@ const Card = styled.div`
       .title {
         font-weight: 600;
       }
-      .aver,
       .date {
         line-height: 1;
         font-size: 14px;
@@ -1435,7 +1468,6 @@ const Card = styled.div`
           font-size: 14px;
         }
 
-        .aver,
         .date {
           line-height: 1;
           font-size: 14px;
@@ -1480,7 +1512,6 @@ const Card = styled.div`
           font-size: 13px;
         }
 
-        .aver,
         .date {
           line-height: 1;
           font-size: 13px;
@@ -1521,118 +1552,131 @@ const SearchContainer = styled.div`
 const Results = styled.div`
   padding: 26px;
   max-width: 1280px;
+  min-height: 500px;
   width: 100%;
   height: auto;
   margin: auto;
   gap: 16px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (max-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
+  ${({ $isLoading }) =>
+    $isLoading
+      ? css`
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        `
+      : css`
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
 
-  @media screen and (max-width: 768px) {
-    padding: 12px;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 9px;
-  }
+          @media screen and (max-width: 1024px) {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+          }
+
+          @media screen and (max-width: 768px) {
+            padding: 12px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 9px;
+          }
+        `}
 `;
 
 const FooterContainer = styled.footer`
-  width: 100%;
-  display: flex;
-  padding: 0px 0px 12px 0px;
-  gap: 12px;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
-  border-top: 1px solid rgba(255, 255, 255, 0.16);
-  transition: background-color 0.15s linear;
+width: 100%;
+display: flex;
+padding: 0px 0px 12px 0px;
+gap: 12px;
+flex-flow: column wrap;
+align-items: center;
+height: 180px;
+justify-content: center;
+border-top: 1px solid rgba(255, 255, 255, 0.16);
+transition: background-color 0.15s linear;
+border-top: 1px solid rgba(0, 0, 0, 0.1);
 
   &.dark {
-    background: #1e1f21;
-    color: #fff;
-  }
+  background: #1e1f21;
+  color: #fff;
+}
 
   .top {
-    padding: 16px;
-    width: 100%;
-    text-align: center;
+  padding: 16px;
+  width: 100 %;
+  text-align: center;
     a {
-      color: #fff;
-      padding: 0 20px;
-    }
+    color: #fff;
+    padding: 0 20px;
   }
+}
 
   .links {
-    width: 100%;
-    text-align: center;
-    padding: 6px 0;
-    a,
+  width: 100 %;
+  text-align: center;
+  padding: 6px 0;
+  a,
     button {
-      padding: 0 16px;
-      color: #8c8888;
-    }
+    padding: 0 16px;
+    color: #8c8888;
   }
+}
 
   .contents {
-    width: 100%;
-    text-align: center;
+  width: 100 %;
+  text-align: center;
     p {
-      line-height: 1.5;
-      font-size: 13px;
-      color: #8c8888;
-    }
+    line-height: 1.5;
+    font-size: 13px;
+    color: #8c8888;
   }
+}
 
-  @media screen and (max-width: 768px) {
-    gap: 8px;
+@media screen and(max-width: 768px) {
+  gap: 8px;
 
     .top {
       a {
-        font-size: 14px;
-      }
+      font-size: 14px;
     }
+  }
 
     .links {
       a {
-        font-size: 13px;
-      }
+      font-size: 13px;
     }
+  }
 
     .contents {
       p {
-        font-size: 11.5px;
-      }
+      font-size: 11.5px;
     }
   }
+}
 `;
 
 const PaginationContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 30px 0;
-  width: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 12px;
+padding: 30px 0;
+width: 100%;
 
-  @media screen and (max-width: 768px) {
-    padding: 24px 0;
-    gap: 16px;
-  }
+@media screen and (max-width: 768px) {
+  padding: 24px 0;
+  gap: 16px;
+}
 `;
 
 const PaginationButton = styled.button`
-  padding: 12px 20px;
-  background: #1de9b6;
-  color: #fff;
-  border-radius: 3px;
+padding: 12px 20px;
+background: #1de9b6;
+color: #fff;
+border-radius: 3px;
 
-  @media screen and (max-width: 768px) {
-    padding: 9px 16px;
-  }
+@media screen and(max-width: 768px) {
+  padding: 9px 16px;
+}
 `;
 
 export {

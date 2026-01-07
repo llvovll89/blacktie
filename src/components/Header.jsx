@@ -9,7 +9,6 @@ import { MdDarkMode, MdSunny } from 'react-icons/md';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { updateSearch } from '../redux/searchSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { darkOn } from '../redux/darkmodeSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -101,10 +100,6 @@ const Header = () => {
 
   const closeClickHandler = () => {
     setIsSearchVisible(false);
-  };
-
-  const darkClickHandler = () => {
-    dispatch(darkOn());
   };
 
   useEffect(() => {
@@ -199,10 +194,6 @@ const Header = () => {
         // onTouchStart={searchHandler}
         >
           {isSearchVisible ? <AiOutlineClose /> : <AiOutlineSearch />}
-        </div>
-
-        <div className="dark_btn" onClick={darkClickHandler}>
-          {dark ? <MdDarkMode /> : <MdSunny />}
         </div>
       </div>
 
