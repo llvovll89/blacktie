@@ -708,7 +708,7 @@ const HeaderContainer = styled.header`
     color: #000;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 32px;
     top: 0;
     left: 0;
     z-index: 1000;
@@ -983,7 +983,7 @@ const HeaderContainer = styled.header`
 const Section = styled.section`
     position: relative;
     padding-top: 56px;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 150px);
     transition: padding-left 0.15s ease;
     background: #ffffff;
     color: #000;

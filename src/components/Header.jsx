@@ -5,62 +5,21 @@ import useDebounce from "../hooks/useDebounce";
 import {HeaderContainer} from "../styles/GlobalStyle";
 import {Loading, Spinner} from "../styles/Loading";
 import {AiOutlineSearch, AiOutlineClose} from "react-icons/ai";
-import {MdDarkMode, MdSunny} from "react-icons/md";
 import {RxHamburgerMenu} from "react-icons/rx";
 import {updateSearch} from "../redux/searchSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {Search} from "./search/Search";
 
 const Header = () => {
     const dispatch = useDispatch();
     const searchRef = useRef(null);
     const toggleRef = useRef(null);
-    const searchInput = useRef(null);
 
     const [isNavbarVisible, setIsNavbarVisible] = useState(false);
     const [isSearchVisible, setIsSearchVisible] = useState(false);
     const [scrollBottom, setScrollBottom] = useState(false);
     const searchQuery = useSelector((state) => String(state.search.query));
     const {dark, bgColor, color} = useSelector((state) => state.darkMode);
-
-    const history = useNavigate();
-
-    const {VITE_API_KEY: API_KEY, VITE_BASE_URL: API_BASE_URL} = import.meta
-        .env;
-
-    const debounceSearchQuery = useDebounce(searchQuery, 500);
-
-    const {data, isLoading, error} = useAxios(
-        `${API_BASE_URL}/search/multi?api_key=${API_KEY}&query=${debounceSearchQuery}&language=ko`
-    );
-
-    const handleSubmit = useCallback(
-        (e) => {
-            e.preventDefault();
-
-            if (searchQuery.trim().length < 1) {
-                return;
-            }
-
-            if (data && data.results) {
-                const {results} = data;
-
-                const filteredResults = results.filter(
-                    (result) =>
-                        result.media_type === "movie" ||
-                        result.media_type === "person"
-                );
-
-                history(`/search/${searchQuery}`, {
-                    state: {results: filteredResults},
-                });
-            }
-
-            setIsSearchVisible(false);
-            e.target.elements.searchInput &&
-                (e.target.elements.searchInput.value = "");
-        },
-        [data, dispatch, history, searchQuery]
-    );
 
     const toggleNavbar = () => {
         setIsNavbarVisible((prevState) => !prevState);
@@ -70,9 +29,8 @@ const Header = () => {
         toggleNavbar();
     };
 
-    const searchHandler = () => {
+    const searchHandler = (e) => {
         setIsSearchVisible((prevState) => !prevState);
-        searchInput.current.focus();
     };
 
     const scrollEvent = useCallback(() => {
@@ -90,10 +48,12 @@ const Header = () => {
                 !toggleRef?.current?.contains(e.target)
             ) {
                 setIsSearchVisible(false);
+                dispatch(updateSearch(""));
             }
 
             if (!toggleRef?.current?.contains(e.target)) {
                 setIsNavbarVisible(false);
+                dispatch(updateSearch(""));
             }
         },
         [setIsSearchVisible, setIsNavbarVisible]
@@ -210,35 +170,16 @@ const Header = () => {
                     </div>
                 </div>
 
-                <div
-                    className="search"
-                    onClick={searchHandler}
-                    // onTouchStart={searchHandler}
-                >
+                <div className="search" onClick={searchHandler}>
                     {isSearchVisible ? <AiOutlineClose /> : <AiOutlineSearch />}
                 </div>
             </div>
 
-            <div
-                className={`search_bar ${isSearchVisible ? "open" : ""}`}
-                ref={searchRef}
-            >
-                <form onSubmit={handleSubmit}>
-                    <input
-                        type="text"
-                        placeholder="영화제목 & TV제목 & 출연진이름 검색"
-                        onChange={(e) => dispatch(updateSearch(e.target.value))}
-                        ref={searchInput}
-                    />
-                    <button
-                        className="close_btn"
-                        onClick={closeClickHandler}
-                        onTouchStart={closeClickHandler}
-                    >
-                        <AiOutlineClose />
-                    </button>
-                </form>
-            </div>
+            <Search
+                isSearchVisible={isSearchVisible}
+                setIsSearchVisible={setIsSearchVisible}
+                searchRef={searchRef}
+            />
         </HeaderContainer>
     );
 };

@@ -19,8 +19,6 @@ const PopulateTv = ({url}) => {
         `${API_BASE_URL}${url}api_key=${API_KEY}&language=ko-KR&sort_by=popularity.desc&include_adult=false&include_video=true&page=1&vote_count.gte=100&with_original_language=ko&append_to_response=videos`
     );
 
-    console.log(data);
-
     return (
         <Container>
             <div className="top">
