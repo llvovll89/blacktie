@@ -28,111 +28,11 @@ const ErrorBox = styled.div`
     color: salmon;
 `;
 
-const TrailerContainer = styled.div`
-    position: relative;
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 40px 12px;
-    width: 100%;
-    height: 100%;
-
-    .slick-slide {
-        margin-right: 20px;
-    }
-
-    .splide__arrow {
-        height: 2.5em;
-        width: 2.5em;
-        background: rgba(0, 0, 0, 0.64);
-        opacity: 1;
-
-        svg {
-            fill: #fff;
-        }
-    }
-
-    .splide__arrow--next {
-        right: 4px;
-    }
-
-    .splide__arrow--prev {
-        left: 4px;
-    }
-
-    .splide__slide {
-        min-width: 200px;
-    }
-
-    span {
-        display: block;
-        font-size: 20px;
-        padding: 36px 0;
-        font-weight: 700;
-    }
-
-    .top {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        h2 {
-            font-size: 24px;
-            padding: 32px 0px 32px 12px;
-        }
-
-        .btnBox {
-            display: flex;
-            gap: 12px;
-
-            button {
-                width: 36px;
-                height: 36px;
-                font-size: 16px;
-                color: #fff;
-                background: rgba(255, 255, 255, 0.14);
-                border-radius: 50%;
-            }
-        }
-    }
-
-    @media screen and (max-width: 768px) {
-        .top {
-            h2 {
-                padding: 26px 0px 26px 12px;
-                font-size: 20px;
-            }
-        }
-
-        .splide__slide {
-            min-width: 150px;
-        }
-    }
-
-    @media screen and (max-width: 564px) {
-        padding: 30px 12px;
-        .top {
-            h2 {
-                font-size: 17.5px;
-                letter-spacing: 0.018rem;
-                padding: 20px 0 20px 12px;
-            }
-        }
-
-        .splide__arrow {
-            height: 2em;
-            width: 2em;
-            background: #181818;
-            opacity: 1;
-        }
-    }
-`;
-
 const Container = styled.div`
     position: relative;
-    max-width: 1280px;
+    max-width: 95%;
     margin: 0 auto;
-    padding: 40px 12px;
+    padding: 1.5rem 0.5rem;
     width: 100%;
     height: 100%;
 
@@ -177,8 +77,9 @@ const Container = styled.div`
         align-items: center;
 
         h2 {
-            font-size: 24px;
-            padding: 32px 0px 32px 12px;
+            font-size: 1.25rem;
+            font-weight: 500;
+            padding: 1.5rem 0px 1.5rem 0.75rem;
         }
 
         .btnBox {
@@ -1583,40 +1484,19 @@ const Results = styled.div`
 const FooterContainer = styled.footer`
     width: 100%;
     display: flex;
-    padding: 0px 0px 12px 0px;
     gap: 12px;
     flex-flow: column wrap;
     align-items: center;
-    height: 180px;
+    height: 150px;
     justify-content: center;
     border-top: 1px solid rgba(255, 255, 255, 0.16);
     transition: background-color 0.15s linear;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
+    user-select: none;
 
     &.dark {
         background: #1e1f21;
         color: #fff;
-    }
-
-    .top {
-        padding: 16px;
-        width: 100 %;
-        text-align: center;
-        a {
-            color: #fff;
-            padding: 0 20px;
-        }
-    }
-
-    .links {
-        width: 100 %;
-        text-align: center;
-        padding: 6px 0;
-        a,
-        button {
-            padding: 0 16px;
-            color: #8c8888;
-        }
     }
 
     .contents {
@@ -1624,7 +1504,7 @@ const FooterContainer = styled.footer`
         text-align: center;
         p {
             line-height: 1.5;
-            font-size: 13px;
+            font-size: 14px;
             color: #8c8888;
         }
     }
@@ -1694,5 +1574,4 @@ export {
     PaginationButton,
     SearchContainer,
     DetailPerson,
-    TrailerContainer,
 };
